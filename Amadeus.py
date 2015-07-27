@@ -96,9 +96,10 @@ for chunkBooking in booking:
     bookingList = [item for item in bookingList if item[1] not in seen and not seen.add(item[1])]
 
 searchesIndex = 0
-booked = list()
+
 for chunkSearches in searches:
-    for k in range(1,len(chunkSearches)):
+    booked = list()
+    for k in range(0,len(chunkSearches)):
         searchesIndex += 1
         bookedSearch = [False]*len(chunkSearches)
         fromSearch = chunkSearches.ix[k, 'Origin']
@@ -107,8 +108,6 @@ for chunkSearches in searches:
             booked.append(1)
         else:
             booked.append(0)
-
-
-pd.merge(searches, booked, how = 'left').to_csv(path='./data/searches_matched.csv')
-
-
+    chunkToWrite = pd.concat([chunkSearches, pd.DataFrame(booked, columns= ['booked'])], axis=1)
+    chunkToWrite.to_csv(path='searches_matched.csv', sep=',', encoding='utf-8',mode='a')
+    print(searchesIndex)

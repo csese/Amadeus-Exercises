@@ -109,5 +109,7 @@ for chunkSearches in searches:
         else:
             booked.append(0)
     chunkToWrite = pd.concat([chunkSearches, pd.DataFrame(booked, columns= ['booked'])], axis=1)
-    chunkToWrite.to_csv(path='searches_matched.csv', sep=',', encoding='utf-8',mode='a')
+    chunkToWrite.to_csv('./data/searches_matched.csv', sep=',', encoding='utf-8',mode='a')
     print(searchesIndex)
+
+
